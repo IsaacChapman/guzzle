@@ -1,0 +1,34 @@
+# solano.yml configuration file for Solano CI https://www.solanolabs.com/
+
+# http://docs.solanolabs.com/ConfiguringLanguage/php/
+# Test libraries and tools (like guzzle) on various language versions
+php:
+  version: 
+    SPLIT:
+      - '7.0'
+      - '5.5'
+  
+# Automatically run PHPUnit tests in parallel using solano-phpunit test runner
+tests:
+  - type: phpunit
+    mode: parallel
+    command: ./vendor/bin/solano-phpunit -c tests/complete.phpunit.xml
+    files:
+      # Glob pattern determining test files to run
+      - tests/**Test.php
+
+# http://docs.solanolabs.com/Setup/setup-hooks/
+hooks:
+  pre_setup: composer install && composer require --dev solano/solano-phpunit:dev-phpunit_5_and_test_priority
+
+# http://docs.solanolabs.com/Setup/caching-dependencies/
+# For libraries and tools (like composer), building without a cache can expose breaking changes in required components
+cache:
+  nocache: true
+# Typical PHP application builds would have a cache configuration like:
+# cache:
+#   key_paths:
+#     - composer.json
+#     - composer.lock
+#   save_paths:
+#     - vendor
