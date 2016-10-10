@@ -1,9 +1,4 @@
 <?php
-// Disable xdebug overloading of var_dump (if it is set).
-// Interferes with GuzzleHttp\describe_type
-if ($x = ini_get('xdebug.overload_var_dump') && $x != 0) {
-    ini_set('xdebug.overload_var_dump', 0);
-}
 
 namespace GuzzleHttp\Test {
     require __DIR__ . '/../vendor/autoload.php';
